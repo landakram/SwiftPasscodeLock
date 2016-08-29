@@ -63,10 +63,20 @@ public class PasscodeSignButton: UIButton {
         layer.cornerRadius = borderRadius
         layer.borderColor = borderColor.CGColor
         
+        self.titleLabel?.numberOfLines = 1
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.titleLabel?.lineBreakMode = .ByClipping
+        
         if let backgroundColor = backgroundColor {
             
             defaultBackgroundColor = backgroundColor
         }
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = self.frame.size.width / 2.0
+        self.titleLabel?.font = self.titleLabel?.font.fontWithSize(self.frame.size.width / 2.2)
     }
     
     private func setupActions() {
