@@ -22,5 +22,6 @@ func bundleForResource(name: String, ofType type: String) -> NSBundle {
         return NSBundle.mainBundle()
     }
     
+    
     return NSBundle(forClass: PasscodeLock.self)
 }

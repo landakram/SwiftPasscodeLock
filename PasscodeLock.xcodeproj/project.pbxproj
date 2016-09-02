@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D47A0771D7912C2006D381B /* ThrottlePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */; };
 		4D47A0791D7912DB006D381B /* EventSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D47A0781D7912DB006D381B /* EventSubscriber.swift */; };
+		4D47A07E1D7A3575006D381B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D47A07D1D7A3575006D381B /* Assets.xcassets */; };
 		C99EAF431B90B05700D61E1B /* PasscodeLock.h in Headers */ = {isa = PBXBuildFile; fileRef = C99EAF421B90B05700D61E1B /* PasscodeLock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99EAF4A1B90B05800D61E1B /* PasscodeLock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99EAF3F1B90B05700D61E1B /* PasscodeLock.framework */; };
 		C9D3DF0B1B919CE4008561EB /* PasscodeLockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D3DF0A1B919CE4008561EB /* PasscodeLockView.xib */; };
@@ -110,6 +111,7 @@
 /* Begin PBXFileReference section */
 		4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrottlePolicy.swift; sourceTree = "<group>"; };
 		4D47A0781D7912DB006D381B /* EventSubscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSubscriber.swift; sourceTree = "<group>"; };
+		4D47A07D1D7A3575006D381B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C99EAF3F1B90B05700D61E1B /* PasscodeLock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PasscodeLock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99EAF421B90B05700D61E1B /* PasscodeLock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasscodeLock.h; sourceTree = "<group>"; };
 		C99EAF441B90B05700D61E1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				C9D3DF471B91F099008561EB /* PasscodeLockPresenter.swift */,
 				4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */,
 				4D47A0781D7912DB006D381B /* EventSubscriber.swift */,
+				4D47A07D1D7A3575006D381B /* Assets.xcassets */,
 			);
 			path = PasscodeLock;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9DC07FC1B90D0A3007A4DD0 /* PasscodeLock.strings in Resources */,
+				4D47A07E1D7A3575006D381B /* Assets.xcassets in Resources */,
 				C9D3DF0B1B919CE4008561EB /* PasscodeLockView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

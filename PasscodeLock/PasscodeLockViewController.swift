@@ -16,7 +16,6 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         case RemovePasscode
         
         func getState() -> PasscodeLockStateType {
-            
             switch self {
             case .EnterPasscode: return EnterPasscodeState()
             case .SetPasscode: return SetPasscodeState()
@@ -50,9 +49,9 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     // MARK: - Initializers
     
 	public init(state: PasscodeLockStateType, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, nibName: String = "PasscodeLockView", bundle: NSBundle? = nil) {
-        
+
         self.animateOnDismiss = animateOnDismiss
-        
+
         passcodeConfiguration = configuration
         passcodeLock = PasscodeLock(state: state, configuration: configuration)
         
@@ -99,6 +98,7 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         super.viewDidLoad()
         
         deleteSignButton?.enabled = false
+        touchIDButton?.imageView?.contentMode = .ScaleAspectFill
         
         setupEvents()
     }
