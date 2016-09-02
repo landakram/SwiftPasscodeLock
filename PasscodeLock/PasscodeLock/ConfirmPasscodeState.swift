@@ -39,7 +39,7 @@ struct ConfirmPasscodeState: PasscodeLockStateType {
             let nextState = SetPasscodeState(title: mismatchTitle, description: mismatchDescription)
             
             lock.changeStateTo(nextState)
-            lock.delegate?.passcodeLockDidFail(lock)
+            lock.delegate?.passcodeLockDidFail(lock, reason: .IncorrectPasscode)
         }
     }
 }

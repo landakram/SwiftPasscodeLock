@@ -89,7 +89,7 @@ public class PasscodeLock: PasscodeLockType {
         dispatch_async(dispatch_get_main_queue()) {
             
             if success {
-                
+                self.configuration.throttlePolicy.markSuccess()
                 self.delegate?.passcodeLockDidSucceed(self)
             }
         }
