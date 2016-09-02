@@ -9,7 +9,6 @@
 import UIKit
 
 public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegate {
-    
     public enum LockState {
         case EnterPasscode
         case SetPasscode
@@ -46,6 +45,8 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     
     private var shouldTryToAuthenticateWithBiometrics = true
     
+    var eventSubscribers: [EventSubscriber]! = []
+    
     // MARK: - Initializers
     
 	public init(state: PasscodeLockStateType, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, nibName: String = "PasscodeLockView", bundle: NSBundle? = nil) {
@@ -63,9 +64,25 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
     
-    public convenience init(state: LockState, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true) {
-        
+    public convenience init(state: LockState,
+                            configuration: PasscodeLockConfigurationType,
+                            animateOnDismiss: Bool = true,
+                            shouldAuthenticateOnForeground: Bool = true
+        ) {
         self.init(state: state.getState(), configuration: configuration, animateOnDismiss: animateOnDismiss)
+        
+        var eventSubscribers: [EventSubscriber] = []
+        if shouldAuthenticateOnForeground {
+            eventSubscribers = [
+                EventSubscriber(target: self,
+                    selector: #selector(appWillEnterForegroundHandler),
+                    eventName: UIApplicationWillEnterForegroundNotification),
+                EventSubscriber(target: self,
+                    selector: #selector(appDidEnterBackgroundHandler),
+                    eventName: UIApplicationDidEnterBackgroundNotification)
+            ]
+        }
+        self.eventSubscribers = eventSubscribers
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -73,7 +90,6 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     }
     
     deinit {
-        
         clearEvents()
     }
     
@@ -113,15 +129,15 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     // MARK: - Events
     
     private func setupEvents() {
-        
-        notificationCenter?.addObserver(self, selector: "appWillEnterForegroundHandler:", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        notificationCenter?.addObserver(self, selector: "appDidEnterBackgroundHandler:", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        self.eventSubscribers.forEach { (subscriber: EventSubscriber) in
+            subscriber.subscribe()
+        }
     }
     
     private func clearEvents() {
-        
-        notificationCenter?.removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
-        notificationCenter?.removeObserver(self, name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        self.eventSubscribers.forEach { (subscriber: EventSubscriber) in
+            subscriber.unsubscribe()
+        }
     }
     
     public func appWillEnterForegroundHandler(notification: NSNotification) {
@@ -243,7 +259,6 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     // MARK: - PasscodeLockDelegate
     
     public func passcodeLockDidSucceed(lock: PasscodeLockType) {
-        
         deleteSignButton?.enabled = true
         animatePlaceholders(placeholders, toState: .Inactive)
         dismissPasscodeLock(lock, completionHandler: { [weak self] _ in
