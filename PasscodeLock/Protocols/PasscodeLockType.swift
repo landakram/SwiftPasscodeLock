@@ -22,10 +22,16 @@ public protocol PasscodeLockType {
     func authenticateWithBiometrics()
 }
 
+public enum PasscodeFailureReason {
+    case Throttled
+    case IncorrectPasscode
+    case RepositoryHasNoPasscode
+}
+
 public protocol PasscodeLockTypeDelegate: class {
     
     func passcodeLockDidSucceed(lock: PasscodeLockType)
-    func passcodeLockDidFail(lock: PasscodeLockType)
+    func passcodeLockDidFail(lock: PasscodeLockType, reason: PasscodeFailureReason)
     func passcodeLockDidChangeState(lock: PasscodeLockType)
     func passcodeLock(lock: PasscodeLockType, addedSignAtIndex index: Int)
     func passcodeLock(lock: PasscodeLockType, removedSignAtIndex index: Int)

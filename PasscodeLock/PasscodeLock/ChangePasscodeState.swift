@@ -24,18 +24,29 @@ struct ChangePasscodeState: PasscodeLockStateType {
     func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType) {
         
         guard let currentPasscode = lock.repository.passcode else {
+            lock.delegate?.passcodeLockDidFail(lock, reason: .RepositoryHasNoPasscode)
+            return
+        }
+        
+        if lock.configuration.throttlePolicy.isThrottled {
+            lock.delegate?.passcodeLockDidFail(lock, reason: .Throttled)
             return
         }
         
         if passcode == currentPasscode {
-            
+            lock.configuration.throttlePolicy.markSuccess()
             let nextState = SetPasscodeState()
             
             lock.changeStateTo(nextState)
             
         } else {
-            
-            lock.delegate?.passcodeLockDidFail(lock)
+            lock.configuration.throttlePolicy.markFailure()
+            if lock.configuration.throttlePolicy.isThrottled {
+                lock.delegate?.passcodeLockDidFail(lock, reason: .Throttled)
+                return
+            } else {
+                lock.delegate?.passcodeLockDidFail(lock, reason: .IncorrectPasscode)
+            }
         }
     }
 }

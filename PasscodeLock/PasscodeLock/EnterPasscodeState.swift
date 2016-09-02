@@ -17,7 +17,6 @@ struct EnterPasscodeState: PasscodeLockStateType {
     let isCancellableAction: Bool
     var isTouchIDAllowed = true
     
-    private var inccorectPasscodeAttempts = 0
     private var isNotificationSent = false
     
     init(allowCancellation: Bool = false) {
@@ -30,23 +29,29 @@ struct EnterPasscodeState: PasscodeLockStateType {
     mutating func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType) {
         
         guard let currentPasscode = lock.repository.passcode else {
+            lock.delegate?.passcodeLockDidFail(lock, reason: .RepositoryHasNoPasscode)
+            return
+        }
+        
+        if lock.configuration.throttlePolicy.isThrottled {
+            lock.delegate?.passcodeLockDidFail(lock, reason: .Throttled)
             return
         }
         
         if passcode == currentPasscode {
-            
+            lock.configuration.throttlePolicy.markSuccess()
             lock.delegate?.passcodeLockDidSucceed(lock)
             
         } else {
+            lock.configuration.throttlePolicy.markFailure()
             
-            inccorectPasscodeAttempts += 1
-            
-            if inccorectPasscodeAttempts >= lock.configuration.maximumInccorectPasscodeAttempts {
-                
-                postNotification()
+            if lock.configuration.throttlePolicy.isThrottled {
+                lock.delegate?.passcodeLockDidFail(lock, reason: .Throttled)
+                return
+            } else {
+                lock.delegate?.passcodeLockDidFail(lock, reason: .IncorrectPasscode)
             }
-            
-            lock.delegate?.passcodeLockDidFail(lock)
+
         }
     }
     

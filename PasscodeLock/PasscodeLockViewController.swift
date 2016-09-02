@@ -255,6 +255,19 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         
         placeholders[index].animateState(state)
     }
+    
+    func showThrottleMessage(message: ThrottleMessage) {
+        let alertController = UIAlertController(title: message.title,
+                                                message: message.body,
+                                                preferredStyle: .Alert)
+        
+        
+        let OKAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true) {
+        }
+    }
 
     // MARK: - PasscodeLockDelegate
     
@@ -266,9 +279,16 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         })
     }
     
-    public func passcodeLockDidFail(lock: PasscodeLockType) {
-        
-        animateWrongPassword()
+    public func passcodeLockDidFail(lock: PasscodeLockType, reason: PasscodeFailureReason) {
+        switch reason {
+        case .IncorrectPasscode:
+            animateWrongPassword()
+        case .Throttled:
+            showThrottleMessage(lock.configuration.throttlePolicy.message)
+            animateWrongPassword()
+        default:
+            animateWrongPassword()
+        }
     }
     
     public func passcodeLockDidChangeState(lock: PasscodeLockType) {

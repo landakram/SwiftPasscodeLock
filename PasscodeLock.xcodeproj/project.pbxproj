@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D47A0771D7912C2006D381B /* ThrottlePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */; };
 		4D47A0791D7912DB006D381B /* EventSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D47A0781D7912DB006D381B /* EventSubscriber.swift */; };
 		C99EAF431B90B05700D61E1B /* PasscodeLock.h in Headers */ = {isa = PBXBuildFile; fileRef = C99EAF421B90B05700D61E1B /* PasscodeLock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99EAF4A1B90B05800D61E1B /* PasscodeLock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99EAF3F1B90B05700D61E1B /* PasscodeLock.framework */; };
@@ -107,6 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrottlePolicy.swift; sourceTree = "<group>"; };
 		4D47A0781D7912DB006D381B /* EventSubscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSubscriber.swift; sourceTree = "<group>"; };
 		C99EAF3F1B90B05700D61E1B /* PasscodeLock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PasscodeLock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99EAF421B90B05700D61E1B /* PasscodeLock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasscodeLock.h; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				C9DC07FA1B90D0A3007A4DD0 /* PasscodeLock.strings */,
 				C9DC08151B90DF4E007A4DD0 /* PasscodeLockViewController.swift */,
 				C9D3DF471B91F099008561EB /* PasscodeLockPresenter.swift */,
+				4D47A0761D7912C2006D381B /* ThrottlePolicy.swift */,
 				4D47A0781D7912DB006D381B /* EventSubscriber.swift */,
 			);
 			path = PasscodeLock;
@@ -557,6 +560,7 @@
 				4D47A0791D7912DB006D381B /* EventSubscriber.swift in Sources */,
 				C9D3DF481B91F099008561EB /* PasscodeLockPresenter.swift in Sources */,
 				C9DC07D81B90B261007A4DD0 /* PasscodeLockStateType.swift in Sources */,
+				4D47A0771D7912C2006D381B /* ThrottlePolicy.swift in Sources */,
 				C9DC08161B90DF4E007A4DD0 /* PasscodeLockViewController.swift in Sources */,
 				C9DC07E11B90BBFD007A4DD0 /* PasscodeLock.swift in Sources */,
 				C9DC07F81B90CF29007A4DD0 /* Functions.swift in Sources */,
