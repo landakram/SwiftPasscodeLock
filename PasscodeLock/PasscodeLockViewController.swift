@@ -8,6 +8,11 @@
 
 import UIKit
 
+public protocol PasscodeEntryDelegate: class {
+    func onSuccess(viewController: PasscodeLockViewController) -> Void
+    func onThrottle(viewController: PasscodeLockViewController) -> Void
+}
+
 public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegate {
     public enum LockState {
         case EnterPasscode
@@ -33,7 +38,8 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     @IBOutlet public weak var touchIDButton: UIButton?
     @IBOutlet public weak var placeholdersX: NSLayoutConstraint?
     
-    public var successCallback: ((lock: PasscodeLockType) -> Void)?
+    public weak var delegate: PasscodeEntryDelegate?
+    
     public var dismissCompletionCallback: (()->Void)?
     public var animateOnDismiss: Bool
     public var notificationCenter: NSNotificationCenter?
@@ -256,13 +262,13 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         placeholders[index].animateState(state)
     }
     
-    func showThrottleMessage(message: ThrottleMessage) {
+    func showThrottleMessage(message: ThrottleMessage, completion: ((UIAlertAction) -> Void)?) {
         let alertController = UIAlertController(title: message.title,
                                                 message: message.body,
                                                 preferredStyle: .Alert)
         
         
-        let OKAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let OKAction = UIAlertAction(title: "OK", style: .Default, handler: completion)
         alertController.addAction(OKAction)
         
         self.presentViewController(alertController, animated: true) {
@@ -275,7 +281,9 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         deleteSignButton?.enabled = true
         animatePlaceholders(placeholders, toState: .Inactive)
         dismissPasscodeLock(lock, completionHandler: { [weak self] _ in
-            self?.successCallback?(lock: lock)
+            if let strongSelf = self {
+                strongSelf.delegate?.onSuccess(strongSelf)
+            }
         })
     }
     
@@ -284,15 +292,16 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         case .IncorrectPasscode:
             animateWrongPassword()
         case .Throttled:
-            showThrottleMessage(lock.configuration.throttlePolicy.message)
             animateWrongPassword()
+            showThrottleMessage(lock.configuration.throttlePolicy.message) { (action) in
+                self.delegate?.onThrottle(self)
+            }
         default:
             animateWrongPassword()
         }
     }
     
     public func passcodeLockDidChangeState(lock: PasscodeLockType) {
-        
         updatePasscodeView()
         animatePlaceholders(placeholders, toState: .Inactive)
         deleteSignButton?.enabled = false
