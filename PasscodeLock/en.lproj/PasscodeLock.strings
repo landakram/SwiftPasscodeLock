@@ -7,27 +7,27 @@
 */
 
 /* Enter Passcode State */
-"PasscodeLockEnterTitle" = "Enter Passcode";
-"PasscodeLockEnterDescription" = "Enter your passcode to proceed.";
+"PasscodeLockEnterTitle" = "Enter your PIN";
+"PasscodeLockEnterDescription" = "Enter your PIN to continue.";
 
 /* Set Passcode State */
-"PasscodeLockSetTitle" = "Enter a Passcode";
-"PasscodeLockSetDescription" = "Choose your passcode.";
+"PasscodeLockSetTitle" = "Create a PIN";
+"PasscodeLockSetDescription" = "Enter a 4 digit PIN. Make sure it's different from other PINs!";
 
 /* Confirm Passcode State */
-"PasscodeLockConfirmTitle" = "Confirm Passcode";
-"PasscodeLockConfirmDescription" = "Enter the passcode again.";
+"PasscodeLockConfirmTitle" = "Confirm PIN";
+"PasscodeLockConfirmDescription" = "Confirm this PIN by entering it one more time.";
 
 /* Change Passcode State */
-"PasscodeLockChangeTitle" = "Enter Old Passcode";
-"PasscodeLockChangeDescription" = "Enter your old passcode.";
+"PasscodeLockChangeTitle" = "Enter old PIN";
+"PasscodeLockChangeDescription" = "Enter your old PIN to continue.";
 
 /* Passcode Mismatch State */
 "PasscodeLockMismatchTitle" = "Try again";
-"PasscodeLockMismatchDescription" = "Passcodes didn\'t match.";
+"PasscodeLockMismatchDescription" = "PIN did not match.";
 
 /* Touch ID Reason */
 "PasscodeLockTouchIDReason" = "Authentication required to proceed";
 
 /* Touch ID Fallback Button */
-"PasscodeLockTouchIDButton" = "Enter Passcode";
+"PasscodeLockTouchIDButton" = "Enter PIN";
